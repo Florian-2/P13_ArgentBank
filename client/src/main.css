@@ -316,6 +316,29 @@ form {
 	}
 }
 
+.edit-form {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.edit-action,
+.edit-inputs {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.edit-inputs input {
+	padding: 10px;
+	font-size: 15px;
+}
+
+.edit-save-button {
+	width: 100%;
+}
+
 button:disabled {
 	cursor: not-allowed;
 	border-color: rgb(190, 190, 190);

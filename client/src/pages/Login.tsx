@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation, useProfileMutation } from "@/store/auth/authApi";
+import { useLoginMutation, useGetProfileMutation } from "@/store/auth/authApi";
 import { setCredentials, setToken } from "@/store/auth/authSlice";
 import { isErrorWithMessage } from "@/utils/error";
 
@@ -12,7 +12,7 @@ function Login() {
 
 	const dispatch = useDispatch();
 	const [login, { isLoading: loginIsLoading }] = useLoginMutation();
-	const [getProfile, { isLoading: getProfileIsLoading }] = useProfileMutation();
+	const [getProfile, { isLoading: getProfileIsLoading }] = useGetProfileMutation();
 
 	const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ function Login() {
 						<label htmlFor="remember-me">Remember me</label>
 					</div>
 
-					<span className="error">{errorMessage ? errorMessage : ""}</span>
+					{errorMessage && <span className="error">{errorMessage}</span>}
 
 					<button className="sign-in-button" disabled={loginIsLoading || getProfileIsLoading}>
 						{loginIsLoading || getProfileIsLoading ? "Loading..." : "Sign In"}
