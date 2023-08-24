@@ -315,3 +315,15 @@ form {
 		width: 200px;
 	}
 }
+
+button:disabled {
+	cursor: not-allowed;
+	border-color: rgb(190, 190, 190);
+	background-color: rgb(190, 190, 190);
+}
+
+.error {
+	display: block;
+	margin: 1rem;
+	color: red;
+}
