@@ -13,14 +13,9 @@ const authSlice = createSlice({
 		setToken: (state, action: PayloadAction<{ token: string }>) => {
 			state.token = action.payload.token;
 		},
-		setName: (state, action: PayloadAction<{ firstName: string; lastName: string }>) => {
-			const firstName = action.payload.firstName;
-			const lastName = action.payload.lastName;
-
-			if (state.user) {
-				state.user.firstName = firstName;
-				state.user.lastName = lastName;
-			}
+		setProfile: (state, action: PayloadAction<User>) => {
+			console.log(action.payload);
+			state.user = action.payload;
 		},
 		logOut: (state) => {
 			state.user = null;
@@ -30,6 +25,6 @@ const authSlice = createSlice({
 	},
 });
 
-export const { setCredentials, setToken, setName, logOut } = authSlice.actions;
+export const { setCredentials, setToken, setProfile, logOut } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

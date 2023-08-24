@@ -19,12 +19,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			}),
 			transformResponse: ({ body }) => body,
 		}),
-		editProfile: builder.mutation<{ id: string; email: string }, { firstName: string; lastName: string }>({
+		editProfile: builder.mutation<User, { firstName: string; lastName: string }>({
 			query: (credentials) => ({
 				url: "/user/profile",
 				method: "PUT",
 				body: credentials,
 			}),
+			transformResponse: ({ body }) => body,
 		}),
 	}),
 });

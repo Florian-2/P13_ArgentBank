@@ -1,5 +1,5 @@
 import { useEditProfileMutation } from "@/store/auth/authApi";
-import { setName } from "@/store/auth/authSlice";
+import { setProfile } from "@/store/auth/authSlice";
 import { isErrorWithMessage } from "@/utils/error";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -26,8 +26,8 @@ export function EditName({ toggleEditMode }: { toggleEditMode: () => void }) {
 				return setErrorMessage("please complete the form");
 			}
 
-			await editProfile({ firstName, lastName }).unwrap();
-			dispatch(setName({ firstName, lastName }));
+			const user = await editProfile({ firstName, lastName }).unwrap();
+			dispatch(setProfile(user));
 
 			toggleEditMode();
 		} catch (error) {
