@@ -5,13 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export function Header() {
-	const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
+	const { user } = useSelector((state: RootState) => state.auth);
 	const dispatch = useDispatch();
-
-	function logout() {
-		dispatch(logOut());
-		// localStorage.removeItem()
-	}
 
 	return (
 		<nav className="main-nav">
@@ -21,20 +16,20 @@ export function Header() {
 			</Link>
 
 			<div>
-				{isAuthenticated ? (
+				{user ? (
 					<>
 						<Link to="/profile" className="main-nav-item">
 							<i className="fa fa-user-circle"></i>
 							{user?.firstName}
 						</Link>
 
-						<Link to="/" className="main-nav-item" onClick={logout}>
+						<Link to="/" className="main-nav-item" onClick={() => dispatch(logOut())}>
 							<i className="fa fa-sign-out"></i>
 							Sign Out
 						</Link>
 					</>
 				) : (
-					<Link to="/signin" className="main-nav-item">
+					<Link to="/login" className="main-nav-item">
 						<i className="fa fa-sign-out"></i>
 						Sign In
 					</Link>

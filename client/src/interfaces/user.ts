@@ -3,12 +3,13 @@ export interface User {
 	email: string;
 	firstName: string;
 	lastName: string;
-	createdAt: Date;
-	updatedAt: Date;
+	createdAt: string;
+	updatedAt: string;
 }
 
 export interface AuthStore {
 	user: User | null;
 	token: string | null;
-	isAuthenticated: boolean;
+	// isAuthenticated: boolean;
+	loaded: boolean;
 }

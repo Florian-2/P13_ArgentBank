@@ -1,14 +1,12 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useGetProfileMutation } from "@/store/auth/authApi";
 import { setCredentials, setToken } from "@/store/auth/authSlice";
-import { isErrorWithMessage } from "@/utils/error";
+import { isErrorWithMessage } from "@/utils";
 
 function Login() {
-	const emailRef = useRef<HTMLInputElement | null>(null);
-	const passwordRef = useRef<HTMLInputElement | null>(null);
-	const [errorMessage, setErrorMessage] = useState("");
+	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const dispatch = useDispatch();
 	const [login, { isLoading: loginIsLoading }] = useLoginMutation();
@@ -16,14 +14,13 @@ function Login() {
 
 	const navigate = useNavigate();
 
-	useEffect(() => emailRef.current?.focus(), []);
-
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
-		if (!emailRef.current || !passwordRef.current) return;
 
-		const email = emailRef.current.value || "tony@stark.com";
-		const password = passwordRef.current.value || "password123";
+		const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+		const email = String(formData.get("email"));
+		const password = String(formData.get("password"));
 
 		try {
 			const token = await login({ email, password }).unwrap();
@@ -47,12 +44,12 @@ function Login() {
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit}>
 					<div className="input-wrapper">
-						<label htmlFor="username">Username</label>
-						<input ref={emailRef} type="text" id="username" />
+						<label htmlFor="email">Email</label>
+						<input type="text" id="email" name="email" />
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="password">Password</label>
-						<input ref={passwordRef} type="password" id="password" />
+						<input type="password" id="password" name="password" />
 					</div>
 					<div className="input-remember">
 						<input type="checkbox" id="remember-me" />

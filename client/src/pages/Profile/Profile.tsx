@@ -1,8 +1,9 @@
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
-import { TransactionsList } from "./components/Transactions";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { TransactionsList } from "./components/Transactions";
 import { EditName } from "./components/EditName";
+import { updatedAt } from "@/utils";
 
 function Profile() {
 	const { user } = useSelector((state: RootState) => state.auth);
@@ -22,7 +23,11 @@ function Profile() {
 				{editModeActive ? (
 					<EditName toggleEditMode={toggleEditMode} />
 				) : (
-					<button className="edit-button" onClick={toggleEditMode}>
+					<button
+						className="edit-button"
+						onClick={toggleEditMode}
+						title={user?.updatedAt && updatedAt(user.updatedAt)}
+					>
 						Edit Name
 					</button>
 				)}

@@ -13,21 +13,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			transformErrorResponse: (err) => err.data,
 		}),
 		getProfile: builder.mutation<User, unknown>({
-			query: (arg?: any) => ({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+			query: (_arg?: any) => ({
 				url: "/user/profile",
 				method: "POST",
-			}),
-			transformResponse: ({ body }) => body,
-		}),
-		editProfile: builder.mutation<User, { firstName: string; lastName: string }>({
-			query: (credentials) => ({
-				url: "/user/profile",
-				method: "PUT",
-				body: credentials,
 			}),
 			transformResponse: ({ body }) => body,
 		}),
 	}),
 });
 
-export const { useLoginMutation, useGetProfileMutation, useEditProfileMutation } = authApiSlice;
+export const { useLoginMutation, useGetProfileMutation } = authApiSlice;

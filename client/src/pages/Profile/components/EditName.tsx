@@ -1,13 +1,13 @@
-import { useEditProfileMutation } from "@/store/auth/authApi";
-import { setProfile } from "@/store/auth/authSlice";
-import { isErrorWithMessage } from "@/utils/error";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
+import { useEditProfileMutation } from "@/store/user/userApi";
+import { setProfile } from "@/store/auth/authSlice";
+import { isErrorWithMessage } from "@/utils";
 
 export function EditName({ toggleEditMode }: { toggleEditMode: () => void }) {
 	const firstnameRef = useRef<HTMLInputElement | null>(null);
 	const lastnameRef = useRef<HTMLInputElement | null>(null);
-	const [errorMessage, setErrorMessage] = useState("");
+	const [errorMessage, setErrorMessage] = useState<string>();
 
 	const dispatch = useDispatch();
 	const [editProfile, { isLoading }] = useEditProfileMutation();
@@ -21,11 +21,11 @@ export function EditName({ toggleEditMode }: { toggleEditMode: () => void }) {
 		const firstName = firstnameRef.current.value;
 		const lastName = lastnameRef.current.value;
 
-		try {
-			if (!firstName || !lastName) {
-				return setErrorMessage("please complete the form");
-			}
+		if (!firstName || !lastName) {
+			return setErrorMessage("please complete the form");
+		}
 
+		try {
 			const user = await editProfile({ firstName, lastName }).unwrap();
 			dispatch(setProfile(user));
 
