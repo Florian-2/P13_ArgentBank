@@ -1,0 +1,354 @@
+swagger: "2.0"
+info:
+    title: Bank Argent API documentation
+    description: Contains all available API endpoints in this codebase
+    version: "1.0.0"
+    termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+schemes:
+    - http
+paths:
+    /transactions:
+        get:
+            security:
+                - Bearer: []
+            tags:
+                - Transactions Module
+            summary: API Get transaction of the current month
+            description: have all the transactions of the current month
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Attach Bearer JWT token
+                  required: true
+                  type: string
+
+            consumes:
+                - application/json
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Get transactions Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponseAllTransactions"
+                "404":
+                    description: Account not found
+                "405":
+                    description: User is not authorized
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
+
+    /transaction:
+        post:
+            security:
+                - Bearer: []
+            tags:
+                - Transactions Module
+            summary: Add New Transaction
+            description: API Add new transaction
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Attach Bearer JWT token
+                  required: true
+                  type: string
+                - in: body
+                  name: body
+                  description: Transaction Payload
+                  required: true
+                  schema:
+                      $ref: "#/definitions/TransactionPayload"
+            consumes:
+                - application/json
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Add transaction Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponseTransaction"
+                "400":
+                    description: Invalid Fields
+                "500":
+                    description: Internal Server Error
+
+    /transaction/{itemId}:
+        get:
+            security:
+                - Bearer: []
+            tags:
+                - Transactions Module
+            summary: API Get transaction by id
+            description: Get transaction details
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Attach Bearer JWT token
+                  type: string
+                  required: true
+                - in: path
+                  name: "itemId"
+                  type: string
+                  required: true
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Get transactions Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponseTransaction"
+                "404":
+                    description: Transaction not found
+                "405":
+                    description: User is not authorized
+                "500":
+                    description: Internal Server Error
+        put:
+            security:
+                - Bearer: []
+            tags:
+                - Transactions Module
+            summary: Update Transaction
+            description: API Update transaction
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Attach Bearer JWT token
+                  required: true
+                  type: string
+                - in: path
+                  name: "itemId"
+                  type: string
+                  required: true
+                - in: body
+                  name: body
+                  description: Transaction Payload
+                  required: true
+                  schema:
+                      $ref: "#/definitions/TransactionPayloadUpdate"
+            consumes:
+                - application/json
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Update transaction Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponseTransaction"
+                "400":
+                    description: Invalid Fields
+                "404":
+                    description: Transaction not found
+                "405":
+                    description: User is not authorized
+                "500":
+                    description: Internal Server Error
+
+        delete:
+            security:
+                - Bearer: []
+            tags:
+                - Transactions Module
+            summary: Delete Transaction
+            description: API Delete transaction
+            parameters:
+                - in: header
+                  name: Authorization
+                  description: Attach Bearer JWT token
+                  required: true
+                  type: string
+                - in: path
+                  name: "itemId"
+                  type: string
+                  required: true
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: Update transaction Successfully
+                    schema:
+                        $ref: "#/definitions/ApiResponseDeleteTransaction"
+                "404":
+                    description: Transaction not found
+                "500":
+                    description: Internal Server Error
+
+securityDefinitions:
+    Bearer:
+        type: apiKey
+        name: Authorization
+        in: header
+
+definitions:
+    TransactionOutput:
+        type: object
+        properties:
+            id:
+                type: integer
+                example: 6095437aba548853b8fc076d
+                description: id of transaction
+            accountId:
+                type: integer
+                example: 6022437aba548853b8fc076d
+                description: id of account object
+            description:
+                type: string
+                example: description of transaction
+                description: transaction description
+            amount:
+                type: number
+                example: 205.56
+                description: amount of transaction
+            balance:
+                type: number
+                example: 2301.74
+                description: amount of transaction
+            transactionType:
+                type: string
+                example: Electronic
+                description: transaction type
+            category:
+                type: string
+                description: transaction category
+            note:
+                type: string
+                example: note about current transaction
+                description: notes for transaction
+            createdAt:
+                type: string
+                format: "date"
+                example: "2021-06-12T20:00:00"
+                description: Date of transaction creation
+
+    AccountIdPayload:
+        type: object
+        properties:
+            accountId:
+                type: "string"
+                example: "6095437aba548853b8fc076d"
+        required:
+            - accountId
+
+    TransactionPayload:
+        type: object
+        properties:
+            accountId:
+                type: integer
+                example: 6022437aba548853b8fc076d
+                description: id of account object
+            description:
+                type: string
+                example: description of transaction
+                description: transaction description
+            amount:
+                type: number
+                example: 205.56
+                description: amount of transaction
+            transactionType:
+                type: string
+                example: Electronic
+                description: transaction type
+            category:
+                type: string
+                example: Food
+                description: transaction category
+            note:
+                type: string
+                example: note about current transaction
+                description: notes for transaction
+        required:
+            - accountId
+            - amount
+
+    TransactionPayloadUpdate:
+        type: object
+        properties:
+            description:
+                type: string
+                example: description of transaction
+                description: transaction description
+            amount:
+                type: number
+                example: 65.78
+                description: amount of transaction
+            transactionType:
+                type: string
+                example: Electronic
+                description: transaction type
+            category:
+                type: string
+                example: Food
+                description: transaction category
+            note:
+                type: string
+                example: note about current transaction
+                description: notes for transaction
+
+    ApiResponseAllTransactions:
+        type: object
+        properties:
+            status:
+                type: integer
+                example: 200
+            message:
+                type: string
+                example: Message success
+            body:
+                type: array
+                items:
+                    type: object
+                    allOf:
+                        - $ref: "#/definitions/TransactionOutput"
+                example:
+                    [
+                        {
+                            "id": "60745437aba548853b8fc099d",
+                            "accountId": "6095437aba548853b8fc076d",
+                            "description": "description of transaction",
+                            "amount": 205.56,
+                            "balance": 2301.74,
+                            "transactionType": "Electronic",
+                            "category": "string",
+                            "note": "note about current transaction",
+                            "createdAt": "2021-06-12T20:00:00",
+                        },
+                        {
+                            "id": "6095437aba548853b8fc076d",
+                            "accountId": "6095437aba548853b8fc076d",
+                            "description": "description of transaction",
+                            "amount": 50.47,
+                            "balance": 1701.74,
+                            "transactionType": "Electronic",
+                            "category": "string",
+                            "note": "note about current transaction",
+                            "createdAt": "2021-06-12T20:00:00",
+                        },
+                    ]
+
+    ApiResponseTransaction:
+        type: object
+        properties:
+            status:
+                type: integer
+                example: 200
+            message:
+                type: string
+                example: Message success
+            body:
+                type: object
+                allOf:
+                    - $ref: "#/definitions/TransactionOutput"
+
+    ApiResponseDeleteTransaction:
+        type: object
+        properties:
+            status:
+                type: integer
+                example: 200
+            message:
+                type: string
+                example: Message success

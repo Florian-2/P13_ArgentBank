@@ -1,6 +1,6 @@
 import { useGetProfileMutation } from "@/store/auth/authApi";
 import { setToken, setCredentials, setLoaded } from "@/store/auth/authSlice";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store";
 import { TransactionsList } from "./components/Transactions";
 import { EditName } from "./components/EditName";
 import { updatedAt } from "@/utils";

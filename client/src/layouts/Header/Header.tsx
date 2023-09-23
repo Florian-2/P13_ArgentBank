@@ -1,6 +1,6 @@
 import Logo from "@/assets/images/argentBankLogo.png";
 import { logOut } from "@/store/auth/authSlice";
-import { RootState } from "@/store/store";
+import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 

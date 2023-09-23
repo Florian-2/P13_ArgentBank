@@ -1,16 +1,14 @@
-import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
-export function ProtectedRoute({ children }: { children: ReactNode }) {
+export function NotProtectedRoute({ children }: { children: ReactNode }) {
 	const { user, loaded } = useSelector((state: RootState) => state.auth);
 
-	if (user) {
+	if (!user && loaded) {
 		return children;
-	} else if (!user && loaded) {
-		return <Navigate to="/login" />;
 	} else {
-		return null;
+		return <Navigate to="/profile" />;
 	}
 }
