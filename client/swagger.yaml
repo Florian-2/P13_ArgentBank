@@ -33,12 +33,12 @@ paths:
                     description: Get transactions Successfully
                     schema:
                         $ref: "#/definitions/ApiResponseAllTransactions"
-                "404":
-                    description: Account not found
-                "405":
+                "401":
                     description: User is not authorized
                 "400":
                     description: Invalid Fields
+                "404":
+                    description: Account not found
                 "500":
                     description: Internal Server Error
 
@@ -76,7 +76,7 @@ paths:
                 "500":
                     description: Internal Server Error
 
-    /transaction/{itemId}:
+    /transaction/{id}:
         get:
             security:
                 - Bearer: []
@@ -101,10 +101,10 @@ paths:
                     description: Get transactions Successfully
                     schema:
                         $ref: "#/definitions/ApiResponseTransaction"
+                "401":
+                    description: User is not authorized
                 "404":
                     description: Transaction not found
-                "405":
-                    description: User is not authorized
                 "500":
                     description: Internal Server Error
         put:
@@ -184,12 +184,12 @@ securityDefinitions:
         in: header
 
 definitions:
-    TransactionOutput:
+    Transaction:
         type: object
         properties:
             id:
                 type: integer
-                example: 6095437aba548853b8fc076d
+                example: 7035237aba547856j8fc076f
                 description: id of transaction
             accountId:
                 type: integer
@@ -224,15 +224,6 @@ definitions:
                 example: "2021-06-12T20:00:00"
                 description: Date of transaction creation
 
-    AccountIdPayload:
-        type: object
-        properties:
-            accountId:
-                type: "string"
-                example: "6095437aba548853b8fc076d"
-        required:
-            - accountId
-
     TransactionPayload:
         type: object
         properties:
@@ -246,7 +237,7 @@ definitions:
                 description: transaction description
             amount:
                 type: number
-                example: 205.56
+                example: 203.45
                 description: amount of transaction
             transactionType:
                 type: string
@@ -273,7 +264,7 @@ definitions:
                 description: transaction description
             amount:
                 type: number
-                example: 65.78
+                example: 75.90
                 description: amount of transaction
             transactionType:
                 type: string
@@ -302,26 +293,26 @@ definitions:
                 items:
                     type: object
                     allOf:
-                        - $ref: "#/definitions/TransactionOutput"
+                        - $ref: "#/definitions/Transaction"
                 example:
                     [
                         {
                             "id": "60745437aba548853b8fc099d",
-                            "accountId": "6095437aba548853b8fc076d",
+                            "accountId": "7035237aba547856j8fc076f",
                             "description": "description of transaction",
-                            "amount": 205.56,
-                            "balance": 2301.74,
+                            "amount": 205.59,
+                            "balance": 2401.74,
                             "transactionType": "Electronic",
                             "category": "string",
                             "note": "note about current transaction",
                             "createdAt": "2021-06-12T20:00:00",
                         },
                         {
-                            "id": "6095437aba548853b8fc076d",
-                            "accountId": "6095437aba548853b8fc076d",
+                            "id": "6035237aba547856j8fc076f",
+                            "accountId": "7035237aba547856j8fc076f",
                             "description": "description of transaction",
-                            "amount": 50.47,
-                            "balance": 1701.74,
+                            "amount": 50.37,
+                            "balance": 1804.74,
                             "transactionType": "Electronic",
                             "category": "string",
                             "note": "note about current transaction",
@@ -341,7 +332,7 @@ definitions:
             body:
                 type: object
                 allOf:
-                    - $ref: "#/definitions/TransactionOutput"
+                    - $ref: "#/definitions/Transaction"
 
     ApiResponseDeleteTransaction:
         type: object
