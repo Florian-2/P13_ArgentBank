@@ -1,0 +1,12 @@
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+label {
+    padding-block: 3px;
+    color: var(--text-color);
+    font-weight: bold;
+}

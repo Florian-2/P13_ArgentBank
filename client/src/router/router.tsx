@@ -4,7 +4,7 @@ import { NotProtectedRoute } from "@/store/auth/components/NotProtectedRoute";
 import App from "@/App";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import Profile from "@/pages/Profile/Profile";
+import Profile from "@/pages/Profile";
 
 export const router = createBrowserRouter([
 	{

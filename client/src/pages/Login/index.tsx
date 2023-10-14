@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useGetProfileMutation } from "@/store/auth/authApi";
 import { setCredentials, setToken } from "@/store/auth/authSlice";
 import { isErrorWithMessage } from "@/utils";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { FormGroup } from "@/components/FormGroup";
+import styles from "./login.module.css";
 
 function Login() {
 	const [errorMessage, setErrorMessage] = useState<string>("");
@@ -38,29 +42,47 @@ function Login() {
 	}
 
 	return (
-		<section className="sign-in-content">
-			<div className="form-container">
+		<section className={styles.sectionForm}>
+			<div className={styles.formContainer}>
 				<i className="fa fa-user-circle sign-in-icon"></i>
+
 				<h1>Sign In</h1>
+
 				<form onSubmit={handleSubmit}>
-					<div className="input-wrapper">
+					<FormGroup>
 						<label htmlFor="email">Email</label>
-						<input type="text" id="email" name="email" />
-					</div>
-					<div className="input-wrapper">
+						<Input
+							type="text"
+							placeholder="tony@stark.com"
+							id="email"
+							name="email"
+						/>
+					</FormGroup>
+
+					<FormGroup>
 						<label htmlFor="password">Password</label>
-						<input type="password" id="password" name="password" />
-					</div>
-					<div className="input-remember">
-						<input type="checkbox" id="remember-me" />
+
+						<Input
+							type="password"
+							placeholder="Mot de passe"
+							name="password"
+						/>
+					</FormGroup>
+
+					<FormGroup className={styles.formRememberMe}>
+						<Input
+							type="checkbox"
+							id="remember-me"
+						/>
+
 						<label htmlFor="remember-me">Remember me</label>
-					</div>
+					</FormGroup>
 
 					{errorMessage && <span className="error">{errorMessage}</span>}
 
-					<button className="sign-in-button" disabled={loginIsLoading || getProfileIsLoading}>
+					<Button disabled={loginIsLoading || getProfileIsLoading}>
 						{loginIsLoading || getProfileIsLoading ? "Loading..." : "Sign In"}
-					</button>
+					</Button>
 				</form>
 			</div>
 		</section>

@@ -10,7 +10,7 @@ function App() {
 		<>
 			<Header />
 
-			<main className="bg-dark">
+			<main className="bg-gray">
 				<Outlet />
 			</main>
 
