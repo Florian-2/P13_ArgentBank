@@ -1,8 +1,16 @@
 .btn {
     padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--secondary-color);
     color: white;
     border: none;
     font-size: inherit;
     border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
 }

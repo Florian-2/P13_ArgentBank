@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { TransactionsList } from "./components/Transactions";
+import { TransactionsList } from "./components/Transactions/TransactionsList";
 import { EditName } from "./components/EditName";
 import { updatedAt } from "@/utils";
+import { Button } from "@/components/Button";
+import { Welcome } from "./components/Welcome";
+import styles from "./profile.module.css";
 
 function Profile() {
 	const { user } = useSelector((state: RootState) => state.auth);
@@ -13,27 +16,23 @@ function Profile() {
 
 	return (
 		<>
-			<div className="header">
-				<h1>
-					Welcome back
-					<br />
-					{user?.firstName} {user?.lastName} !
-				</h1>
+			<div className={styles.header}>
+				<Welcome
+					firstName={user!.firstName}
+					lastName={user!.lastName}
+				/>
 
 				{editModeActive ? (
 					<EditName toggleEditMode={toggleEditMode} />
 				) : (
-					<button
-						className="edit-button"
+					<Button
 						onClick={toggleEditMode}
 						title={user?.updatedAt && updatedAt(user.updatedAt)}
 					>
 						Edit Name
-					</button>
+					</Button>
 				)}
 			</div>
-
-			<h2 className="sr-only">Accounts</h2>
 
 			<TransactionsList />
 		</>

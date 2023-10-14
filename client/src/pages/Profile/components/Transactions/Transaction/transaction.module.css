@@ -1,0 +1,18 @@
+.transaction {
+    padding: 1.5rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: var(--border);
+    background-color: #fff;
+    text-align: left;
+}
+
+@media (max-width: 720px) {
+    .transaction {
+        align-items: start;
+        flex-direction: column;
+        gap: 1.3rem;
+    }
+}

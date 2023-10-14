@@ -1,11 +1,23 @@
+.sectionForm {
+    flex-grow: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .formContainer {
+    max-width: 350px;
+    width: 100%;
     background-color: white;
     padding: 2rem;
     border-radius: 5px;
 }
 
 .form {
-    max-width: 350px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .formRememberMe {

@@ -48,7 +48,10 @@ function Login() {
 
 				<h1>Sign In</h1>
 
-				<form onSubmit={handleSubmit}>
+				<form
+					onSubmit={handleSubmit}
+					className={styles.form}
+				>
 					<FormGroup>
 						<label htmlFor="email">Email</label>
 						<Input

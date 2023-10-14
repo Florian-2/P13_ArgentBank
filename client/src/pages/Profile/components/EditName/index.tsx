@@ -1,25 +1,24 @@
-import { useEffect, useRef, useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useEditProfileMutation } from "@/store/user/userApi";
 import { setProfile } from "@/store/auth/authSlice";
 import { isErrorWithMessage } from "@/utils";
+import { Input } from "@/components/Input";
+import { Button } from "@/components/Button";
+import styles from "./editName.module.css";
 
 export function EditName({ toggleEditMode }: { toggleEditMode: () => void }) {
-	const firstnameRef = useRef<HTMLInputElement | null>(null);
-	const lastnameRef = useRef<HTMLInputElement | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string>();
 
 	const dispatch = useDispatch();
 	const [editProfile, { isLoading }] = useEditProfileMutation();
 
-	useEffect(() => firstnameRef.current?.focus(), []);
-
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
-		if (!firstnameRef.current || !lastnameRef.current) return;
 
-		const firstName = firstnameRef.current.value;
-		const lastName = lastnameRef.current.value;
+		const formData = new FormData(e.target as HTMLFormElement);
+		const firstName = formData.get("firstname")?.toString();
+		const lastName = formData.get("lastname")?.toString();
 
 		if (!firstName || !lastName) {
 			return setErrorMessage("please complete the form");
@@ -38,24 +37,42 @@ export function EditName({ toggleEditMode }: { toggleEditMode: () => void }) {
 	}
 
 	return (
-		<>
-			<form onSubmit={handleSubmit} className="edit-form">
-				<div className="edit-inputs">
-					<input ref={firstnameRef} type="text" placeholder="John" />
-					<input ref={lastnameRef} type="text" placeholder="Doe" />
-				</div>
+		<form
+			onSubmit={handleSubmit}
+			className={styles.editForm}
+		>
+			<div className="edit-inputs">
+				<Input
+					type="text"
+					name="firstname"
+					placeholder="John"
+					autoFocus
+				/>
+				<Input
+					type="text"
+					name="lastname"
+					placeholder="Doe"
+				/>
+			</div>
 
-				<div className="edit-action">
-					<button type="submit" className="edit-button" disabled={isLoading}>
-						Save
-					</button>
-					<button type="button" onClick={toggleEditMode} disabled={isLoading} className="edit-button">
-						Cancel
-					</button>
-				</div>
-			</form>
+			<div className={styles.actions}>
+				<Button
+					type="submit"
+					disabled={isLoading}
+				>
+					Save
+				</Button>
+
+				<Button
+					type="button"
+					onClick={toggleEditMode}
+					disabled={isLoading}
+				>
+					Cancel
+				</Button>
+			</div>
 
 			{errorMessage && <span className="error">{errorMessage}</span>}
-		</>
+		</form>
 	);
 }

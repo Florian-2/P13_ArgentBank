@@ -91,7 +91,7 @@ paths:
                   type: string
                   required: true
                 - in: path
-                  name: "itemId"
+                  name: "transactionId"
                   type: string
                   required: true
             produces:
@@ -121,7 +121,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: "itemId"
+                  name: "transactionId"
                   type: string
                   required: true
                 - in: body
@@ -162,7 +162,7 @@ paths:
                   required: true
                   type: string
                 - in: path
-                  name: "itemId"
+                  name: "transactionId"
                   type: string
                   required: true
             produces:
