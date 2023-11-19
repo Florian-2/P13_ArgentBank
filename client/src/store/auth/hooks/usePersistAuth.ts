@@ -34,5 +34,5 @@ export function usePersistAuth() {
 		}
 
 		persistAuth();
-	}, []);
+	}, [dispatch, getProfile, user.loaded, user.user]);
 }

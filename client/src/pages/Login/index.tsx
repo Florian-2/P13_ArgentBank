@@ -26,6 +26,10 @@ function Login() {
 		const email = String(formData.get("email"));
 		const password = String(formData.get("password"));
 
+		if (!email || !password) {
+			return setErrorMessage("Complete the form");
+		}
+
 		try {
 			const token = await login({ email, password }).unwrap();
 			dispatch(setToken({ token }));

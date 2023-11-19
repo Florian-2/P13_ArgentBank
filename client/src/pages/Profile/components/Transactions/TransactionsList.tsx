@@ -6,7 +6,10 @@ export function TransactionsList() {
 	return (
 		<div className={styles.containerTransactions}>
 			{transactions.map((transaction) => (
-				<Transaction transaction={transaction} />
+				<Transaction
+					key={transaction.id}
+					transaction={transaction}
+				/>
 			))}
 		</div>
 	);

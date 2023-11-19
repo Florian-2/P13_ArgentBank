@@ -10,6 +10,5 @@ export interface User {
 export interface AuthStore {
 	user: User | null;
 	token: string | null;
-	// isAuthenticated: boolean;
 	loaded: boolean;
 }
